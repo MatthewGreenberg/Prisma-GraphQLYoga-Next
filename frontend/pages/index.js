@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+import Songs from '../components/Songs'
 
 function Home(props) {
   const [title, setTitle] = useState('Hello')
   return (
     <div>
-      <h1 className="title">{title}</h1>
+      <Songs />
     </div>
   )
 }

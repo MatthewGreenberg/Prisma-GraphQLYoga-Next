@@ -8,6 +8,9 @@ function Nav(props) {
       <Link href="/sell">
         <a>Sell</a>
       </Link>
+      <Link href="/items">
+        <a>Shop</a>
+      </Link>
     </div>
   )
 }
