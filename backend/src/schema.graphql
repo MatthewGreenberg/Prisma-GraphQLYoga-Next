@@ -9,6 +9,13 @@ type Mutation {
     largeImage: String
   ): Item!
   createSong(title: String, artist: String, duration: Int): Song!
+  deleteSong(id: ID!): Song!
+  updateUser(
+    id: ID!
+    name: String
+    email: String
+    songsConnection: SongWhereUniqueInput
+  ): User!
 }
 
 type Query {
@@ -19,4 +26,5 @@ type Query {
     first: Int
   ): [Song]!
   song(where: SongWhereUniqueInput!): Song
+  user(where: UserWhereUniqueInput!): User
 }

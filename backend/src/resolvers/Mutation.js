@@ -21,6 +21,25 @@ const Mutations = {
     )
     return song
   },
+  async deleteSong(parent, args, ctx, info) {
+    const where = { id: args.id }
+    return ctx.db.mutation.deleteSong({ where }, info)
+  },
+  updateUser(parent, args, ctx, info) {
+    const updates = { ...args }
+    delete updates.id
+    delete updates.songsConnection
+    return ctx.db.mutation.updateUser(
+      {
+        data: {
+          ...updates,
+          songsConnection: { connect: { id: args.songsConnection.id } },
+        },
+        where: { id: args.id },
+      },
+      info
+    )
+  },
 }
 
 module.exports = Mutations

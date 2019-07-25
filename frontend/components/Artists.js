@@ -13,7 +13,17 @@ class Artists extends Component {
     })
   }
   render() {
-    return <div className="artist-list">{this.getArtists()} </div>
+    return (
+      <div className="artist-list">
+        {this.getArtists()}{' '}
+        <button
+          style={{ border: '2px solid tomato' }}
+          onClick={() => this.props.handleChangeArtists('')}
+        >
+          Reset
+        </button>{' '}
+      </div>
+    )
   }
 }
 

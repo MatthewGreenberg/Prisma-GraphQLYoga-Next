@@ -62,7 +62,12 @@ export default class Songs extends Component {
                     )
                     .map((song, i) => {
                       return (
-                        <Song title={song.title} artist={song.artist} key={i} />
+                        <Song
+                          id={song.id}
+                          title={song.title}
+                          artist={song.artist}
+                          key={i}
+                        />
                       )
                     })}
                 </SongsList>
