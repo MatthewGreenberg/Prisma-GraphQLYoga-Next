@@ -27,4 +27,10 @@ type Query {
   ): [Song]!
   song(where: SongWhereUniqueInput!): Song
   user(where: UserWhereUniqueInput!): User
+  users(
+    where: SongWhereInput
+    orderBy: SongOrderByInput
+    skip: Int
+    first: Int
+  ): [User]!
 }

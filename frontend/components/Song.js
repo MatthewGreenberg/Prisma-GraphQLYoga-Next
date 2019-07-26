@@ -17,11 +17,26 @@ const SongWrapper = styled.div`
     color: tomato;
     cursor: pointer;
   }
+  .add-to-user {
+    position: absolute;
+    top: 0px;
+    left: 30px;
+    color: limegreen;
+    cursor: pointer;
+  }
 `
 
 const DELETE_SONG = gql`
   mutation DELETE_SONG($id: ID!) {
     deleteSong(id: $id) {
+      id
+    }
+  }
+`
+
+const UPDATE_USER_SONGS = gql`
+  mutation UPDATE_USER_SONGS($userId: ID!, $songId: ID!) {
+    updateUser(id: $userId, songsConnection: { id: $songId }) {
       id
     }
   }
@@ -60,6 +75,23 @@ export default class Song extends Component {
               className="delete"
             >
               x
+            </span>
+          )}
+        </Mutation>
+        <Mutation mutation={UPDATE_USER_SONGS}>
+          {(updateUser, { data }) => (
+            <span
+              onClick={() =>
+                updateUser({
+                  variables: {
+                    userId: 'cjyj8e2eh003i0743f2b9o65m',
+                    songId: id,
+                  },
+                })
+              }
+              className="add-to-user"
+            >
+              +
             </span>
           )}
         </Mutation>

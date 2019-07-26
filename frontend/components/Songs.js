@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import Link from 'next/link'
 import Song from './Song'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Artists from './Artists'
 import AddSong from './AddSong'
+import Users from './Users'
 
 const SongsList = styled.div`
   display: grid;
@@ -46,13 +46,14 @@ export default class Songs extends Component {
     const { artist } = this.state
     return (
       <div>
+        <Users />
         <h1>Songs</h1>
         <Query query={ALL_SONGS_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>loading</p>
             if (error) return <p>There was an error: {error.message}</p>
             return (
-              <>
+              <div>
                 <SongsList>
                   {data.songs
                     .filter(song =>
@@ -75,7 +76,7 @@ export default class Songs extends Component {
                   songs={data.songs}
                   handleChangeArtists={this.setArtists}
                 />
-              </>
+              </div>
             )
           }}
         </Query>
