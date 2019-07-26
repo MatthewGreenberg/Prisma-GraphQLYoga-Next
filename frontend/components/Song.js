@@ -37,7 +37,9 @@ const DELETE_SONG = gql`
 const UPDATE_USER_SONGS = gql`
   mutation UPDATE_USER_SONGS($userId: ID!, $songId: ID!) {
     updateUser(id: $userId, songsConnection: { id: $songId }) {
-      id
+      songsConnection {
+        id
+      }
     }
   }
 `
@@ -49,6 +51,19 @@ const ALL_SONGS_QUERY = gql`
       title
       artist
       duration
+    }
+  }
+`
+const ALL_USERS = gql`
+  query ALL_USERS {
+    users {
+      name
+      email
+      id
+      songsConnection {
+        title
+        artist
+      }
     }
   }
 `
@@ -78,7 +93,21 @@ export default class Song extends Component {
             </span>
           )}
         </Mutation>
-        <Mutation mutation={UPDATE_USER_SONGS}>
+        <Mutation
+          mutation={UPDATE_USER_SONGS}
+          update={(cache, { data: { updateUser } }) => {
+            const data = cache.readQuery({ query: ALL_USERS })
+            const user = data.users.filter(
+              user => user.id === 'cjyj8e2eh003i0743f2b9o65m'
+            )
+            const newData = updateUser.songsConnection
+            user[0].songsConnection = newData
+            cache.writeQuery({
+              query: ALL_USERS,
+              data,
+            })
+          }}
+        >
           {(updateUser, { data }) => (
             <span
               onClick={() =>

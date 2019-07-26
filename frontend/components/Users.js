@@ -14,8 +14,10 @@ const UsersStyled = styled.div`
     h3 {
       margin-bottom: 0px;
     }
+    h6,
     h5 {
       margin-top: 5px;
+      margin-bottom: 0px;
     }
   }
 `
@@ -25,6 +27,7 @@ const ALL_USERS = gql`
     users {
       name
       email
+      id
       songsConnection {
         title
         artist
@@ -48,6 +51,9 @@ export default class Users extends Component {
                     <div key={i} className="user">
                       <h3 className="name">{user.name}</h3>
                       <h5 className="email">{user.email}</h5>
+                      <h6>{` User has ${
+                        user.songsConnection.length
+                      } songs`}</h6>
                     </div>
                   )
                 })}
